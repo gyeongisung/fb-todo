@@ -6,7 +6,7 @@ import Form from "./components/Form";
 function App() {
   console.log("App 랜더링");
   // 더미 데이터 일반변수
-  const [todoData, setTododata] = useState([
+  const [todoData, setTodoData] = useState([
     { id: 1, title: "할일 1", completed: false },
     { id: 2, title: "할일 2", completed: false },
     { id: 3, title: "할일 3", completed: false },
@@ -14,7 +14,7 @@ function App() {
   ]);
 
   const handleRemoveClick = () => {
-    setTododata([]);
+    setTodoData([]);
   };
 
   return (
@@ -32,9 +32,9 @@ function App() {
           </button>
         </div>
         {/* 할일 목록 */}
-        <List todoData={todoData} setTododata={setTododata} />
+        <List todoData={todoData} setTodoData={setTodoData} />
         {/* 할일 추가 */}
-        <Form todoData={todoData} setTododata={setTododata} />
+        <Form todoData={todoData} setTodoData={setTodoData} />
       </div>
     </div>
   );
