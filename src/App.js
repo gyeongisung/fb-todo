@@ -14,11 +14,13 @@ function App() {
   ]);
 
   return (
-    <>
-      <div className="container">
-        <div className="todo-block">
-          <div className="title">
-            <h1>할일 목록</h1>
+    <div className="flex items-center justify-center w-screen h-screen bg-blue-300">
+      <div className="w-4/5 p-6 bg-white rounded-[6px] shadow">
+        <div>
+          <div className="flex justify-between mb-3">
+            <h1 className="text-center w-3/4 text-2xl text-blue-600 font-semibold">
+              Firebase Todo-List
+            </h1>
           </div>
           {/* 할일 목록 */}
           <List todoData={todoData} setTododata={setTododata} />
@@ -26,7 +28,7 @@ function App() {
           <Form todoData={todoData} setTododata={setTododata} />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
