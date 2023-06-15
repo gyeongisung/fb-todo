@@ -1,18 +1,30 @@
 import React, { useState } from "react";
 import SignUpDiv from "../style/UserCSS";
 import { useNavigate } from "react-router-dom";
+// firebase 연동
+import firebase from "../firebase";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const [nickname, setNickName] = useState("");
+  const [nickName, setNickName] = useState("");
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [pwConfirm, setPwConfirm] = useState("");
-  const handleSignUp = e => {
+  const handleSignUp = async e => {
     e.preventDefault();
-    // firebase 에 회원가입 하기
+    try {
+      // firebase 에 회원가입 하기
+      let createUser = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, pw);
+      await createUser.user.updateProfile({
+        name: nickName,
+      });
+      console.log("등록된 정보 : ", createUser.user);
+    } catch (err) {
+      console.log(err);
+    }
   };
-
   return (
     <div className="p-6 mt-5 shadow rounded-md bg-white flex flex-col">
       <h2>회원가입</h2>
@@ -26,7 +38,7 @@ const Signup = () => {
           <input
             type="text"
             required
-            value={nickname}
+            value={nickName}
             onChange={e => setNickName(e.target.value)}
             placeholder="이름을 입력해주세요"
             title="이름을 입력하지않으면 안되지?!"
@@ -36,8 +48,6 @@ const Signup = () => {
             type="email"
             required
             value={email}
-            maxLength={10}
-            minLength={2}
             onChange={e => setEmail(e.target.value)}
             placeholder="이메일을 입력해주세요"
           ></input>
