@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { patchTitleTodo, patchCompletedTodo, deleteTodo } from "../axios/axios";
 
 const ListItem = ({ item, todoData, setTodoData }) => {
   // console.log("ListItem 랜더링", item);
@@ -28,8 +29,9 @@ const ListItem = ({ item, todoData, setTodoData }) => {
     const newTodoData = todoData.filter(item => item.id !== _id);
     setTodoData(newTodoData);
     // 로컬스토리지 저장
-    localStorage.setItem("fbTodoData", JSON.stringify(newTodoData));
+    // localStorage.setItem("fbTodoData", JSON.stringify(newTodoData));
     // axios delete 호출 fbtodolist 삭제
+    deleteTodo(_id);
   };
 
   const handleEditClick = () => {
@@ -45,13 +47,22 @@ const ListItem = ({ item, todoData, setTodoData }) => {
     let newTodoData = todoData.map(item => {
       if (item.id === _id) {
         item.title = editTitle;
+        item.completed = false;
       }
       return item;
     });
     setTodoData(newTodoData);
     // 로컬스토리지 저장
-    localStorage.setItem("fbTodoData", JSON.stringify(newTodoData));
+    // localStorage.setItem("fbTodoData", JSON.stringify(newTodoData));
     // axios patch/put 호출 fbtodolist 수정
+
+    // axiosInstance
+    //   .put(`/todos/${_id}`, { title: editTitle })
+    //   .then(res => res.data)
+    //   .then(result => console.log(result))
+    //   .catch(error => console.log(error));
+
+    patchTitleTodo(_id, editTitle);
     setIsEdit(false);
   };
 
@@ -62,14 +73,16 @@ const ListItem = ({ item, todoData, setTodoData }) => {
     let newTodoData = todoData.map(item => {
       if (item.id === _id) {
         // completed를 갱신함.
+        // 전달할 값 보관
         item.completed = !item.completed;
       }
       return item;
     });
     setTodoData(newTodoData);
     // 로컬스토리지 저장
-    localStorage.setItem("fbTodoData", JSON.stringify(newTodoData));
+    // localStorage.setItem("fbTodoData", JSON.stringify(newTodoData));
     // axios patch/put 호출 fbtodolist 수정
+    patchCompletedTodo(_id, { ...item });
   };
 
   if (isEdit) {
@@ -80,7 +93,7 @@ const ListItem = ({ item, todoData, setTodoData }) => {
           <input
             className="w-full px-3 py-2 mr-3 text-gray-500 rounded"
             type="text"
-            defaultValue={item.titme}
+            defaultValue={item.title}
             // 개인적으로 좀더 파악해 보자
             // value={editTitle}
             onChange={e => handleEditChange(e)}
@@ -108,6 +121,7 @@ const ListItem = ({ item, todoData, setTodoData }) => {
           <input
             type="checkbox"
             defaultChecked={item.completed}
+            value={item.completed}
             onChange={() => handleCompleteChange(item.id)}
           />
           <span className="ml-3">{item.title}</span>
