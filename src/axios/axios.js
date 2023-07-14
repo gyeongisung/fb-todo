@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
   },
 });
 // Todo Get 기능
-const getTodo = async 함수 => {
+const getTodo = async (함수, 함수2) => {
   try {
     const res = await axiosInstance.get("/todos");
     const result = res.data;
@@ -26,8 +26,10 @@ const getTodo = async 함수 => {
       return item;
     });
     함수(todosArr);
+    함수2(false);
   } catch (error) {
     console.log(error);
+    함수2(false);
   }
 };
 

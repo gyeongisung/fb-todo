@@ -45,6 +45,24 @@ const Header = ({
               Todo
             </Link>
           </li>
+          <li>
+            <Link
+              to="/schedule"
+              className="text-cyan-300 hover:text-orange-600"
+            >
+              Schedule
+            </Link>
+          </li>
+          <li>
+            <Link to="/upload" className="text-cyan-300 hover:text-orange-600">
+              Upload
+            </Link>
+          </li>
+          <li>
+            <Link to="/chart" className="text-cyan-300 hover:text-orange-600">
+              Chart
+            </Link>
+          </li>
         </ul>
         <div className="flex justify-center gap-5">
           {fbUid ? (

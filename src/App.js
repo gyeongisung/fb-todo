@@ -9,6 +9,9 @@ import SignUp from "./pages/SignUp";
 import Todo from "./pages/Todo";
 import NotFound from "./pages/NotFound";
 import MyPage from "./pages/MyPage";
+import Schedule from "./pages/Schedule";
+import Upload from "./pages/Upload";
+import TodoChart from "./pages/TodoChart";
 
 function App() {
   // console.log("App 랜더링");
@@ -61,6 +64,9 @@ function App() {
               />
             }
           />
+          <Route path="/schedule" element={<Schedule />} />
+          <Route path="/upload" element={<Upload />} />
+          <Route path="/chart" element={<TodoChart />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

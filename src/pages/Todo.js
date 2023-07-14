@@ -4,9 +4,12 @@ import List from "../components/List";
 import Form from "../components/Form";
 import { useNavigate } from "react-router-dom";
 import { getTodo, deleteAllTodo } from "../axios/axios";
+import Loading from "../components/Loading";
 
 const Todo = ({ fbName, fbEmail, fbUid }) => {
   const navigator = useNavigate();
+  // 로딩 처리
+  const [isLoading, setIsLoading] = useState(true);
 
   // 백엔드반에서는 DB table 구성에 활용한다.
   // Firebase,MongoDB에서는 Collection 구성에 활용한다.
@@ -32,11 +35,12 @@ const Todo = ({ fbName, fbEmail, fbUid }) => {
 
   // axios get 호출 자료받기
   useEffect(() => {
-    getTodo(setTodoData);
+    getTodo(setTodoData, setIsLoading);
   }, []);
 
   return (
     <div className="flex justify-center items-start mt-5 w-full">
+      {isLoading && <Loading />}
       <div className="w-4/5 p-6 bg-white rounded-[6px] shadow">
         <div className="flex justify-between mb-3">
           <h1 className="text-center w-3/4 text-2xl text-blue-600 font-semibold">

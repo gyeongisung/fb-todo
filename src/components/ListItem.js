@@ -96,6 +96,7 @@ const ListItem = ({ item, todoData, setTodoData }) => {
             defaultValue={item.title}
             // 개인적으로 좀더 파악해 보자
             // value={editTitle}
+            
             onChange={e => handleEditChange(e)}
           />
         </div>
