@@ -1,24 +1,31 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import firebase from "../firebase";
+import { Link } from "react-router-dom";
+import { useLogout } from "../hooks/useLogout";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Header = ({
   fbName,
   fbEmail,
   fbUid,
-  setFBName,
-  setFBEmail,
-  setFBUid,
+  // setFBName,
+  // setFBEmail,
+  // setFBUid,
 }) => {
-  const navigator = useNavigate();
+  // AuthContext 로그아웃 실행으로 상태 변경
+  const { logout } = useLogout();
+  const { user } = useAuthContext();
+
+  // const navigator = useNavigate();
   // fb 로그아웃
   const handleLogout = () => {
-    firebase.auth().signOut();
-    console.log("로그아웃");
-    setFBName("");
-    setFBEmail("");
-    setFBUid("");
-    navigator("/");
+    logout();
+
+    // firebase.auth().signOut();
+    // console.log("로그아웃");
+    // setFBName("");
+    // setFBEmail("");
+    // setFBUid("");
+    // navigator("/");
   };
   return (
     <header className="p-7 bg-black">
@@ -65,7 +72,13 @@ const Header = ({
           </li>
         </ul>
         <div className="flex justify-center gap-5">
-          {fbUid ? (
+          <button
+            className="text-cyan-300 hover:text-orange-600"
+            onClick={handleLogout}
+          >
+            로그아웃
+          </button>
+          {user ? (
             <div className="text-white">
               {fbName} {fbEmail} {fbUid}
               <button onClick={handleLogout}>로그아웃</button>
