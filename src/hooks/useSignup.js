@@ -49,7 +49,7 @@ export const useSignup = () => {
       // 연결 후 작업 완료
       setIsPending(false);
       // 회원가입 성공으로 login 라우터로 이동
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       console.log(err);
     }

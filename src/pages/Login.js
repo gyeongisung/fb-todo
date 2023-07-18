@@ -1,40 +1,49 @@
 import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import firebase from "./../firebase";
 import { Button, Checkbox, Form, Input, Modal } from "antd";
+import { useLogin } from "../hooks/useLogin";
+// import firebase from "../firebase";
 
-const Login = ({ setFBName, setFBEmail, setFBUid }) => {
+const Login = () => {
+  const { login } = useLogin();
+
   // Link, NavLink, useNavigate
   const navigate = useNavigate();
 
-  const onFinish = async values => {
+  const onFinish = values => {
     console.log("Success:", values);
+
     try {
-      await firebase
-        .auth()
-        .signInWithEmailAndPassword(values.email, values.password);
-      // 사용자 정보 가지고 오기
-      const user = firebase.auth().currentUser;
-      setFBName(user.displayName);
-      setFBEmail(user.email);
-      setFBUid(user.uid);
-      alert(`${user.displayName}님 반갑습니다.`);
-      navigate("/");
+      login(values.email, values.password);
     } catch (error) {
       console.log(error);
-      if (error.code === "auth/invalid-email") {
-        setModalMessage("올바른 이메일 형식이 아닙니다.");
-      } else if (error.code === "auth/wrong-password") {
-        setModalMessage("올바르지 않은 비밀번호입니다.");
-      } else if (error.code === "auth/user-not-found") {
-        setModalMessage("가입되지 않은 사용자 입니다.");
-      } else if (error.code === "auth/missing-email") {
-        setModalMessage("이메일이 입력되지 않았습니다.");
-      } else {
-        setModalMessage("로그인에 실패하였습니다.");
-      }
-      showModal();
     }
+    // try {
+    //   await firebase
+    //     .auth()
+    //     .signInWithEmailAndPassword(values.email, values.password);
+    //   // 사용자 정보 가지고 오기
+    //   const user = firebase.auth().currentUser;
+    //   setFBName(user.displayName);
+    //   setFBEmail(user.email);
+    //   setFBUid(user.uid);
+    //   alert(`${user.displayName}님 반갑습니다.`);
+    //   navigate("/");
+    // } catch (error) {
+    //   console.log(error);
+    //   if (error.code === "auth/invalid-email") {
+    //     setModalMessage("올바른 이메일 형식이 아닙니다.");
+    //   } else if (error.code === "auth/wrong-password") {
+    //     setModalMessage("올바르지 않은 비밀번호입니다.");
+    //   } else if (error.code === "auth/user-not-found") {
+    //     setModalMessage("가입되지 않은 사용자 입니다.");
+    //   } else if (error.code === "auth/missing-email") {
+    //     setModalMessage("이메일이 입력되지 않았습니다.");
+    //   } else {
+    //     setModalMessage("로그인에 실패하였습니다.");
+    //   }
+    //   showModal();
+    // }
   };
   const onFinishFailed = errorInfo => {
     console.log("Failed:", errorInfo);

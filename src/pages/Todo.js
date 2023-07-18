@@ -28,9 +28,9 @@ const Todo = ({ fbName, fbEmail, fbUid }) => {
   // uid가 없는 경우 로그인으로 바로 보내기
   useEffect(() => {
     // if(fbUid === ""){
-    if (!fbUid) {
-      navigator("/login");
-    }
+    // if (!fbUid) {
+    //   navigator("/login");
+    // }
   }, []);
 
   // axios get 호출 자료받기
