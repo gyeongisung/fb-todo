@@ -8,8 +8,8 @@ const Header = () => {
   const { logout } = useLogout();
   const { user } = useAuthContext();
 
-  console.log("==================");
-  console.log(user);
+  // console.log("==================");
+  // console.log(user);
 
   // const navigator = useNavigate();
   // fb 로그아웃

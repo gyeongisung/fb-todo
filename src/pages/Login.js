@@ -11,7 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onFinish = values => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
 
     try {
       login(values.email, values.password);

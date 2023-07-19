@@ -42,7 +42,7 @@ export const useSignup = () => {
         displayName: displayName,
         //   photoURL: "https://example.com/jane-q-user/profile.jpg",
       });
-      console.log("dispatch 실행=========== ");
+      // console.log("dispatch 실행=========== ");
       dispatch({ type: "login", payload: user });
       // 에러 없음
       setError(null);

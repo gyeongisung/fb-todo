@@ -332,7 +332,7 @@ const UploadJson = () => {
     // 웹브라우저가 갱신한다.
     // 기본 기능 막기
     event.preventDefault();
-    console.log("submit 실행으로 데이터 처리시작.");
+    // console.log("submit 실행으로 데이터 처리시작.");
     // 필수 항목을 체크 한다. (기획서상의 문제)
     // : 이미지 파일이 있는지
     if (!previewImage) {
@@ -436,7 +436,7 @@ const UploadMulti = () => {
   };
   const handleSubmit = async event => {
     event.preventDefault();
-    console.log("submit 실행으로 데이터 처리시작.");
+    // console.log("submit 실행으로 데이터 처리시작.");
     if (!previewImage) {
       alert("이미지를 선택해 주세요.");
     }

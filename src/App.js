@@ -51,20 +51,7 @@ function App() {
               />
               <Route
                 path="/mypage"
-                element={
-                  user ? (
-                    <MyPage
-                      fbName={fbName}
-                      fbEmail={fbEmail}
-                      fbUid={fbUid}
-                      setFBName={setFBName}
-                      setFBEmail={setFBEmail}
-                      setFBUid={setFBUid}
-                    />
-                  ) : (
-                    <Navigate to="/login" />
-                  )
-                }
+                element={user ? <MyPage /> : <Navigate to="/login" />}
               />
               <Route path="/schedule" element={<Schedule />} />
               <Route path="/upload" element={<Upload />} />
