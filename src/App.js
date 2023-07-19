@@ -1,6 +1,6 @@
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -13,6 +13,7 @@ import Schedule from "./pages/Schedule";
 import Upload from "./pages/Upload";
 import TodoChart from "./pages/TodoChart";
 import { useAuthContext } from "./hooks/useFirebase";
+import { Modal } from "antd";
 
 function App() {
   // console.log("App 랜더링");
@@ -21,7 +22,27 @@ function App() {
   const [fbEmail, setFBEmail] = useState("");
   const [fbUid, setFBUid] = useState("");
 
-  const { isAuthReady, user } = useAuthContext();
+  const { isAuthReady, user, errMessage, dispatch } = useAuthContext();
+
+  // 에러메시지 모달 관련
+  const error = msg => {
+    Modal.error({
+      title: "This is a warning message",
+      content: msg,
+      onOk: handleOk,
+      okButtonProps: { style: { background: "red" } },
+    });
+  };
+
+  useEffect(() => {
+    if (errMessage !== "") {
+      error(errMessage);
+    }
+  }, [errMessage]);
+
+  const handleOk = () => {
+    dispatch({ type: "isError", payload: "" });
+  };
 
   return (
     <>

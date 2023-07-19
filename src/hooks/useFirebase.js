@@ -39,6 +39,19 @@ export const useLogin = () => {
       navigate("/");
     } catch (err) {
       console.log(err.message);
+      let errMessage = "";
+      if (err.code === "auth/invalid-email") {
+        errMessage = "올바른 이메일 형식이 아닙니다.";
+      } else if (err.code === "auth/wrong-password") {
+        errMessage = "올바르지 않은 비밀번호입니다.";
+      } else if (err.code === "auth/user-not-found") {
+        errMessage = "가입되지 않은 사용자 입니다.";
+      } else if (err.code === "auth/missing-email") {
+        errMessage = "이메일이 입력되지 않았습니다.";
+      } else {
+        errMessage = "로그인이 실패하였습니다.";
+      }
+      dispatch({ type: "isError", payload: errMessage });
     }
   };
   return { error, isPending, login };
@@ -114,6 +127,19 @@ export const useSignup = () => {
       navigate("/");
     } catch (err) {
       console.log(err);
+
+      let errMessage = "";
+      if (err.code == "auth/email-already-in-use") {
+        errMessage = "이미 사용중인 이메일 입니다. 다른 이메일을 사용해주세요";
+      } else if (err.code == "auth/invalid-email") {
+        errMessage = "이메일 주소가 형식에 맞지 않습니다. 다시 입력해주세요.";
+      } else if (err.code == "auth/operation-not-allowed") {
+        errMessage = "허용되지 않은 접근 방식입니다.";
+      } else if (err.code == "auth/weak-password") {
+        errMessage = "비밀번호가 너무 짧습니다. 6자 이상 입력해주세요.";
+      }
+      dispatch({ type: "isError", payload: errMessage });
+      
     }
   };
 
