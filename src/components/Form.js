@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { postTodo } from "../axios/axios";
+import { useFireStore } from "../hooks/useFireStore";
 
-const Form = ({ todoData, setTodoData, fbName, fbEmail }) => {
+const Form = ({ todoData, setTodoData, uid }) => {
   // console.log("Form 랜더링");
+  // FB Store에 Collection 참조를 활용
+  const { addDocument, response } = useFireStore("todo");
 
   // 새로운 할일 state 변수
   const [value, setValue] = useState("");
@@ -17,19 +20,19 @@ const Form = ({ todoData, setTodoData, fbName, fbEmail }) => {
     // 웹 브라우저로 url데이터 전송을 막아야함.
     // A태그의 href를 막아주듯
     e.preventDefault();
-    // 형식 즉, 키명을 구조를 지켜줌.
+    // // 형식 즉, 키명을 구조를 지켜줌.
 
-    if (value === " ") {
-      alert("내용을 입력하세요.");
-    }
+    // if (value === " ") {
+    //   alert("내용을 입력하세요.");
+    // }
 
-    const newTodo = {
-      id: Date.now(),
-      title: value,
-      completed: false,
-      author: fbName,
-      email: fbEmail,
-    };
+    // const newTodo = {
+    //   id: Date.now(),
+    //   title: value,
+    //   completed: false,
+    //   author: fbName,
+    //   email: fbEmail,
+    // };
     // 새로운 todo 객체를 만들어준다 그리고 저장하고 갱신한다.
     // todoData 에 추가\
     // set함수(setTodoData)에서 갱신 된 state를
@@ -38,12 +41,15 @@ const Form = ({ todoData, setTodoData, fbName, fbEmail }) => {
     // setTodoData((이전의 state)=>{
     // setTodoData(prev => {
     //   return [...prev, newTodo];
-    // });
-    setTodoData([...todoData, newTodo]);
+    // // });
+    // setTodoData([...todoData, newTodo]);
     // 로컬스토리지 저장
     // localStorage.setItem("fbTodoData", JSON.stringify([...todoData, newTodo]));
     // axios post 호출 fbtodolist 추가하기
-    postTodo(newTodo);
+    // postTodo(newTodo);
+    // FB의 collection에 Document를 추가한다.
+    // Document 형식은 객체 리터럴 입니다.
+    addDocument({ uid, title: value, completed: false });
     // 입력창 초기화
     setValue("");
   };
