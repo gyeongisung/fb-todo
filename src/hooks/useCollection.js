@@ -39,7 +39,7 @@ export const useCollection = (transaction, userQuery) => {
           // 이용하면 내용을 뜯을 수 있다.
           result.push({ ...item.data(), id: item.id });
         });
-        console.log("결과 : ", result);
+        // console.log("결과 : ", result);
         setDocuments(result);
         setError(null);
       },

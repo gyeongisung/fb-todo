@@ -106,7 +106,7 @@ export const useSignup = () => {
         password,
       );
       const user = userCredential.user;
-      console.log(user);
+      // console.log(user);
       if (!user) {
         // 에러 객체를 던진다.
         console.log("회원 가입에 실패하였습니다.");

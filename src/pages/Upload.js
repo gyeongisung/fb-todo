@@ -26,7 +26,7 @@ const UploadFetch = () => {
     // FormData 객체에 속성명:값을 추가한다.
     // 이경우 append() 메서드를 활용한다.
     formData.append(sendKye, file);
-    console.log(formData);
+    // console.log(formData);
     try {
       const res = await fetch(sendUrl, {
         method: "POST",
@@ -35,13 +35,13 @@ const UploadFetch = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log("전송완료 : ", res);
+      // console.log("전송완료 : ", res);
       // 임시로 올려진 이미지를 미리보기하자.
       // 아래메소드는 blob(Binary Large Object) 을 생성한다.
       // blob 은 이진수로 데이터를 표현한다.
       setUploadImage(URL.createObjectURL(file));
     } catch (error) {
-      console.log("업로드 실패 : ", error);
+      console.log(error);
     }
   };
   return (
@@ -80,7 +80,7 @@ const UploadPreview = () => {
       // 이미지가 임시파일로 웹브라우저에 로드완료되면
       reader.onloadend = () => {
         // state 변경한다.
-        console.log(reader.result);
+        // console.log(reader.result);
         setUploadImage(reader.result);
       };
       // 임시 파일을 읽어들인다.
@@ -107,10 +107,10 @@ const UploadPreview = () => {
             "Content-Type": "multipart/form-data",
           },
         });
-        console.log("전송완료 : ", res);
+        // console.log("전송완료 : ", res);
         // 서버가 정상적으로 업데이트 되고 나서 URL 줄때
         const serverStatus = res.status.toString();
-        console.log(serverStatus.charAt(0));
+        // console.log(serverStatus.charAt(0));
         if (serverStatus.charAt(0) === "2") {
           setCharImg("서버의 이미지 주소 URL");
         } else {
@@ -118,7 +118,7 @@ const UploadPreview = () => {
           setCharImg(uploadImage);
         }
       } catch (error) {
-        console.log("데이터 전송 실패", error);
+        console.log(error);
       }
     }
   };
@@ -188,7 +188,7 @@ const UploadAxios = () => {
       // 이미지가 임시파일로 웹브라우저에 로드완료되면
       reader.onloadend = () => {
         // state 변경한다.
-        console.log(reader.result);
+        // console.log(reader.result);
         setUploadImage(reader.result);
       };
       // 임시 파일을 읽어들인다.
@@ -213,10 +213,10 @@ const UploadAxios = () => {
             "Content-Type": "multipart/form-data",
           },
         });
-        console.log("전송완료 : ", res);
+        // console.log("전송완료 : ", res);
         // 서버가 정상적으로 업데이트 되고 나서 URL 줄때
         const serverStatus = res.status.toString();
-        console.log(serverStatus.charAt(0));
+        // console.log(serverStatus.charAt(0));
         if (serverStatus.charAt(0) === "2") {
           setCharImg("서버의 이미지 주소 URL");
         } else {
@@ -224,7 +224,7 @@ const UploadAxios = () => {
           setCharImg(uploadImage);
         }
       } catch (error) {
-        console.log("데이터 전송 실패", error);
+        console.log(error);
         // 데모 버전에서 프론트에서 처리
         setCharImg(uploadImage);
       }

@@ -7,20 +7,10 @@ const Header = () => {
   const { logout } = useLogout();
   const { user } = useAuthContext();
 
-  // console.log("==================");
-  // console.log(user);
-
-  // const navigator = useNavigate();
   // fb 로그아웃
   const handleLogout = () => {
     logout();
 
-    // firebase.auth().signOut();
-    // console.log("로그아웃");
-    // setFBName("");
-    // setFBEmail("");
-    // setFBUid("");
-    // navigator("/");
   };
   return (
     <header className="p-7 bg-black">

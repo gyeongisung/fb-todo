@@ -12,16 +12,12 @@ const getTodo = async (함수, 함수2) => {
   try {
     const res = await axiosInstance.get("/todos");
     const result = res.data;
-    // 문제가 무엇인가하면.. "true", "false" 문자열로 들어옮
     const todosArr = result.map(item => {
       if (item.completed === "true") {
         item.completed = true;
       } else {
         item.completed = false;
       }
-      // 상렬님
-      // item.completed = JSON.parse(item.completed);
-      // item.id = JSON.parse(item.id);
 
       return item;
     });
