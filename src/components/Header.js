@@ -1,16 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useLogout, useAuthContext } from "../hooks/useFirebase";
+import { useLogout } from "../hooks/useFirebase";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   // AuthContext 로그아웃 실행으로 상태 변경
   const { logout } = useLogout();
-  const { user } = useAuthContext();
+  const { user } = useSelector(state => state);
 
   // fb 로그아웃
   const handleLogout = () => {
     logout();
-
   };
   return (
     <header className="p-7 bg-black">

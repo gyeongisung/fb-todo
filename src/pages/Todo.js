@@ -4,16 +4,16 @@ import List from "../components/List";
 import Form from "../components/Form";
 import { useNavigate } from "react-router-dom";
 import { getTodo, deleteAllTodo } from "../axios/axios";
-import Loading from "../components/Loading";
-import { useAuthContext } from "../hooks/useFirebase";
+// import Loading from "../components/Loading";
 import { useCollection } from "../hooks/useCollection";
+import { useSelector } from "react-redux";
 
 // 사용자의 uid가 필요, 이유는 회원가입을 여러명이 할수 있는데,
 // todo를 등록해 주기 위해서 uid 필요
 
-const Todo = ({ fbName, fbEmail, fbUid }) => {
+const Todo = () => {
   // 사용자별 등록을 위해 user를 참조
-  const { user } = useAuthContext();
+  const { user } = useSelector(state => state);
   // Collection data 출력 state
   const { documents, error } = useCollection("todo", ["uid", "==", user.uid]);
   // console.log("문서목록==============");
@@ -59,8 +59,6 @@ const Todo = ({ fbName, fbEmail, fbUid }) => {
         <Form
           todoData={todoData}
           setTodoData={setTodoData}
-          fbName={fbName}
-          fbEmail={fbEmail}
           uid={user.uid}
         />
       </div>

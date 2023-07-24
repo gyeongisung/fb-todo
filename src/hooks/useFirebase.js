@@ -1,5 +1,5 @@
-import { useState, useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { useState } from "react";
+// import { AuthContext } from "../context/AuthContext";
 import {
   signInWithEmailAndPassword,
   signOut,
@@ -11,18 +11,20 @@ import {
 } from "firebase/auth";
 import { appAuth } from "../firebase/config";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 // AuthContext Hook
-export const useAuthContext = () => {
-  const context = useContext(AuthContext);
-  return context;
-};
+// export const useAuthContext = () => {
+//   const context = useContext(AuthContext);
+//   return context;
+// };
 
 // 사용자 로그인 Hook
 export const useLogin = () => {
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
-  const { dispatch } = useAuthContext();
+  // const { dispatch } = useAuthContext();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const login = async (email, password) => {
@@ -61,7 +63,7 @@ export const useLogin = () => {
 export const useLogout = () => {
   const [error, setError] = useState(null);
   const [isPending, setIspending] = useState(false);
-  const { dispatch } = useAuthContext();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const logout = async () => {
@@ -82,7 +84,7 @@ export const useLogout = () => {
 // 사용자 회원가입 Hook
 export const useSignup = () => {
   // authContext 데이터 전달
-  const { dispatch } = useAuthContext();
+  const dispatch = useDispatch();
 
   // 사용자 상태에 따라 웹브라우저 라우터 이동
   const navigate = useNavigate();
@@ -139,7 +141,6 @@ export const useSignup = () => {
         errMessage = "비밀번호가 너무 짧습니다. 6자 이상 입력해주세요.";
       }
       dispatch({ type: "isError", payload: errMessage });
-      
     }
   };
 
@@ -148,7 +149,7 @@ export const useSignup = () => {
 
 // 사용자 이메일변경 Hook
 export const useUpdateEmail = () => {
-  const { dispatch } = useAuthContext();
+  const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
 
@@ -170,7 +171,7 @@ export const useUpdateEmail = () => {
 
 // 사용자 닉네임 변경 Hook
 export const useUpdateNickName = () => {
-  const { dispatch } = useAuthContext();
+  const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
 
@@ -223,7 +224,7 @@ export const useUpdatePass = () => {
 
 // 사용자 계정 삭제 Hook
 export const useUserDelete = () => {
-  const { dispatch } = useAuthContext();
+  const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(false);
   const userDelete = async () => {

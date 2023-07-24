@@ -35,7 +35,14 @@ const authReducer = (state, action) => {
       return { ...state, user: null };
     case "isError":
       return { ...state, errMessage: action.payload };
-      // dispatch({type:"isError", payload:"비밀번호 오류입니다."})
+    // dispatch({type:"isError", payload:"비밀번호 오류입니다."})
+    case "kakaoLogin":
+      console.log(action.payload);
+      return { ...state, kakaoProfile: action.payload };
+    case "kakaoLogOut":
+      return { ...state, kakaoProfile: null };
+    case "kakaoOut":
+      return { ...state, kakaoProfile: null };
     default:
       return state;
   }
@@ -53,6 +60,7 @@ const AuthContextProvider = ({ children }) => {
     user: null, // fb 로그인 정보 {email:"", uid:"", nickName:""}
     isAuthReady: false, // 로그인상태 체크
     errMessage: "", //에러 메시지
+    kakaoProfile: null, // 카카오 저장 정보
   });
   // FB 인증 웹 브라우저 새로 고침 처리
   useEffect(() => {
