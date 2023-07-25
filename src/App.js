@@ -16,6 +16,7 @@ import { Modal } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { appAuth } from "./firebase/config";
+import { FB_IS_AUTHREADY, FB_IS_ERROR } from "./modules/fbreducer";
 // import { useAuthContext } from "./hooks/useFirebase";
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
       // 로그인이 되었는지 아닌지를 파악한다.
       // AuthContext에 User 정보를 입력한다.
       // console.log("onAuthStateChanged : ", user);
-      dispatch({ type: "isAuthReady", payload: user });
+      dispatch({ type: FB_IS_AUTHREADY, payload: user });
     });
   }, []);
 
@@ -59,7 +60,7 @@ function App() {
   }, [errMessage]);
 
   const handleOk = () => {
-    dispatch({ type: "isError", payload: "" });
+    dispatch({ type: FB_IS_ERROR, payload: "" });
   };
 
   return (
