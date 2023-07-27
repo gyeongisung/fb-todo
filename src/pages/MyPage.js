@@ -10,83 +10,39 @@ import {
 import { useSelector } from "react-redux";
 
 const MyPage = () => {
-  const { user } = useSelector(state => state);
+  const { displayName, email } = useSelector(state => state.fbAuth);
   const { updateNickName } = useUpdateNickName();
   const { updateMail } = useUpdateEmail();
   const { updatePass } = useUpdatePass();
   const { userDelete } = useUserDelete();
   const navigate = useNavigate();
   const [nickName, setNickName] = useState("");
-  const [email, setEmail] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [pw, setPw] = useState("");
   const [pwConfirm, setPwConfirm] = useState("");
 
   // AuthContext에 state의 user를 출력
   useEffect(() => {
-    setNickName(user.displayName);
-    setEmail(user.email);
+    setNickName(displayName);
+    setUserEmail(email);
   }, []);
 
   const handlerNickName = async e => {
     e.preventDefault();
     updateNickName(nickName);
-    //   try {
-    //     await user.updateProfile({
-    //       displayName: nickName,
-    //     });
-    //     setFBName(nickName);
-    //     setNickName(nickName);
-    //     alert("닉네임 정보를 변경하였습니다.");
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
   };
   const handlerEmail = async e => {
     e.preventDefault();
-    updateMail(email);
-    // try {
-    //   await user.updateEmail(email);
-    //   setFBEmail(email);
-    //   setEmail(email);
-    //   alert("이메일 정보를 변경하였습니다.");
-    // } catch (error) {
-    //   if (error.code == "auth/email-already-in-use") {
-    //     alert("The email address is already in use");
-    //   } else if (error.code == "auth/invalid-email") {
-    //     alert("The email address is not valid.");
-    //   } else {
-    //     alert("이메일을 확인 해주세요");
-    //   }
-    // }
+    updateMail(userEmail);
   };
   const handlerPassword = async e => {
     e.preventDefault();
     updatePass(pw);
-    // try {
-    //   await user.updatePassword(pw);
-    //   alert("비밀번호를 변경하였습니다.");
-    // } catch (error) {
-    //   if (error.code == "auth/weak-password") {
-    //     alert("The password is too weak.");
-    //   } else {
-    //     alert("비밀번호 다시 입력해 주세요.");
-    //   }
-    // }
-    // console.log("비밀번호 업데이트");
   };
   const handlerDelete = async e => {
     e.preventDefault();
     userDelete();
     navigate("/");
-    // try {
-    //   await user.delete();
-    //   alert("서비스 탈퇴하셨습니다.");
-    //   setFBName("");
-    //   setFBEmail("");
-    //   setFBUid("");
-    // } catch (error) {
-    //   console.log(error.code);
-    // }
   };
 
   return (
@@ -120,8 +76,8 @@ const MyPage = () => {
             <input
               type="email"
               required
-              value={email}
-              onChange={e => setEmail(e.target.value)}
+              value={userEmail}
+              onChange={e => setUserEmail(e.target.value)}
             />
             <button
               className="border rounded px-3 py-2 shadow"

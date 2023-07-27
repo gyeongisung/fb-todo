@@ -10,13 +10,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onFinish = values => {
-    // console.log("Success:", values);
-
-    try {
-      login(values.email, values.password);
-    } catch (error) {
-      console.log(error);
-    }
+    login(values.email, values.password);
     // try {
     //   await firebase
     //     .auth()

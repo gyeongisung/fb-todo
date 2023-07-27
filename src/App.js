@@ -16,19 +16,11 @@ import { Modal } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { appAuth } from "./firebase/config";
-import { FB_IS_AUTHREADY, FB_IS_ERROR } from "./modules/fbreducer";
-// import { useAuthContext } from "./hooks/useFirebase";
+import { isAuthReadyFB, isErrorFB } from "./reducers/fbAuthSlice";
 
 function App() {
-  // console.log("App 랜더링");
-  // 추후에 Redux/Recoil state로 관리 필요
-  // const { isAuthReady, user, errMessage, dispatch } = useAuthContext();
-
-  // 1. Store에 저장 된 State를 읽어온다.
-  // const isAuthReady = useSelector(state => state.isAuthReady);
-  // const user = useSelector(state => state.user);
-  // const errMessage = useSelector(state => state.errMessage);
-  const { isAuthReady, user, errMessage } = useSelector(state => state);
+  // slice를 활요하였음.
+  const { isAuthReady, errMessage, uid } = useSelector(state => state.fbAuth);
 
   // 2. store에 저장된 state를 업데이트(action 만들어서 전달)
   const dispatch = useDispatch();
@@ -39,7 +31,14 @@ function App() {
       // 로그인이 되었는지 아닌지를 파악한다.
       // AuthContext에 User 정보를 입력한다.
       // console.log("onAuthStateChanged : ", user);
-      dispatch({ type: FB_IS_AUTHREADY, payload: user });
+      // dispatch({ type: FB_IS_AUTHREADY, payload: user });
+      dispatch(
+        isAuthReadyFB({
+          uid: user && user.uid,
+          email: user && user.email,
+          displayName: user && user.displayName,
+        }),
+      );
     });
   }, []);
 
@@ -60,7 +59,7 @@ function App() {
   }, [errMessage]);
 
   const handleOk = () => {
-    dispatch({ type: FB_IS_ERROR, payload: "" });
+    dispatch(isErrorFB(""));
   };
 
   return (
@@ -76,16 +75,16 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route
                 path="/login"
-                element={user ? <Navigate to="/" /> : <Login />}
+                element={uid ? <Navigate to="/" /> : <Login />}
               />
               <Route path="/signup" element={<SignUp />} />
               <Route
                 path="/todo"
-                element={user ? <Todo /> : <Navigate to="/login" />}
+                element={uid ? <Todo /> : <Navigate to="/login" />}
               />
               <Route
                 path="/mypage"
-                element={user ? <MyPage /> : <Navigate to="/login" />}
+                element={uid ? <MyPage /> : <Navigate to="/login" />}
               />
               <Route path="/schedule" element={<Schedule />} />
               <Route path="/upload" element={<Upload />} />

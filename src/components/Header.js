@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const Header = () => {
   // AuthContext 로그아웃 실행으로 상태 변경
   const { logout } = useLogout();
-  const { user } = useSelector(state => state);
+  const { displayName, uid, email } = useSelector(state => state.fbAuth);
 
   // fb 로그아웃
   const handleLogout = () => {
@@ -31,7 +31,7 @@ const Header = () => {
           </li>
           <li>
             <Link
-              to={user ? "/todo" : "/login"}
+              to={uid ? "/todo" : "/login"}
               className="text-cyan-300 hover:text-orange-600"
             >
               Todo
@@ -57,9 +57,9 @@ const Header = () => {
           </li>
         </ul>
         <div className="flex justify-center gap-5">
-          {user ? (
+          {uid ? (
             <div className="text-white">
-              {user.displayName} {user.email} {user.uid}
+              {displayName} {email} {uid}
               <button onClick={handleLogout}>로그아웃</button>
               <Link to="/mypage">마이페이지</Link>
             </div>

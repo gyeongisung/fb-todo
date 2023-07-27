@@ -3,15 +3,9 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import { createStore } from "redux";
 // Provider는 Store의 state에 접근 가능 한 영역을 지정
 import { Provider } from "react-redux";
-// Redux DevTools 설치
-import { composeWithDevTools } from "redux-devtools-extension";
-import authReducer, { initialState } from "./modules/fbreducer";
-
-// 저장소 = createStore(reducer 함수, state 초기값, 개발도구)
-const store = createStore(authReducer, initialState, composeWithDevTools());
+import store from "./store/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

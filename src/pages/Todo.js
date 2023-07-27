@@ -13,9 +13,9 @@ import { useSelector } from "react-redux";
 
 const Todo = () => {
   // 사용자별 등록을 위해 user를 참조
-  const { user } = useSelector(state => state);
+  const { uid } = useSelector(state => state.fbAuth);
   // Collection data 출력 state
-  const { documents, error } = useCollection("todo", ["uid", "==", user.uid]);
+  const { documents, error } = useCollection("todo", ["uid", "==", uid]);
   // console.log("문서목록==============");
   // console.log(documents);
 
@@ -56,11 +56,7 @@ const Todo = () => {
         {documents && <List todoData={documents} />}
         {/* <List todoData={todoData} setTodoData={setTodoData} /> */}
         {/* 할일 추가 */}
-        <Form
-          todoData={todoData}
-          setTodoData={setTodoData}
-          uid={user.uid}
-        />
+        <Form todoData={todoData} setTodoData={setTodoData} uid={uid} />
       </div>
     </div>
   );
